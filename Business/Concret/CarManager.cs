@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using DataAccess.Abstract;
+using DataAccess.Concrete;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -9,9 +9,9 @@ namespace Business.Concret
 {
     public class CarManager : ICarService
     {
-        ICarDal _cardal;
+        IMemoryCarDal _cardal;
 
-        public CarManager(ICarDal cardal)
+        public CarManager(IMemoryCarDal cardal)
         {
             _cardal = cardal;
         }
