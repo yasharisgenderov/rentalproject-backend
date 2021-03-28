@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -11,12 +12,22 @@ namespace DataAccess.Concrete.EntityFramework
     {
         public void Add(Car entity)
         {
-            throw new NotImplementedException();
+            using (NortwindContext context = new NortwindContext())
+            {
+                var addedcontext = context.Entry(entity);
+                addedcontext.State = EntityState.Added;
+                context.SaveChanges();
+            }
         }
 
         public void Delete(Car entity)
         {
-            throw new NotImplementedException();
+            using (NortwindContext context = new NortwindContext())
+            {
+                var deletedcontext = context.Entry(entity);
+                deletedcontext.State = EntityState.Deleted;
+                context.SaveChanges();
+            }
         }
 
         public Car Get(Expression<Func<Car, bool>> filter)
@@ -36,7 +47,12 @@ namespace DataAccess.Concrete.EntityFramework
 
         public void Update(Car entity)
         {
-            throw new NotImplementedException();
+            using (NortwindContext context = new NortwindContext())
+            {
+                var updatedcontext = context.Entry(entity);
+                updatedcontext.State = EntityState.Modified;
+                context.SaveChanges();
+            }
         }
     }
 }
