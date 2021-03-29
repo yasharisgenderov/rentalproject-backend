@@ -13,6 +13,6 @@ namespace Entities.DTOs
        
         public string ColorName { get; set; }
 
-        public double DailyPrice { get; set; }
+        public decimal DailyPrice { get; set; }
     }
 }
