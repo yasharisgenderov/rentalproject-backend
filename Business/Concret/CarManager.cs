@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using Entities.Concrete;
@@ -18,7 +20,7 @@ namespace Business.Concret
             _cardal = cardal;
         }
 
-        public Car Add(Car car)
+        /*public Car Add(Car car)
         {
             if (car.CarName.Length<2)
             {
@@ -33,26 +35,35 @@ namespace Business.Concret
             _cardal.Add(car);
             Console.WriteLine("Masin ugurla elave edildi");
             return car;
+        }*/
+        public IResult Add(Car car)
+        { 
+            _cardal.Add(car);
+            return new SuccessResult(Messages.ProductAdded);
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _cardal.GetAll();
+            if (DateTime.Now.Hour == 23)
+            {
+                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Car>>(_cardal.GetAll());
         }
 
-        public List<Car> GetCarsByBrandId(int brandid)
+        public IDataResult<List<Car>> GetCarsByBrandId(int brandid)
         {
-            return _cardal.GetAll(c => c.BrandId == brandid);
+            return new SuccessDataResult<List<Car>>(_cardal.GetAll(c => c.BrandId == brandid));
         }
 
-        public List<Car> GetCarsByColorId(int colorid)
+        public IDataResult<List<Car>> GetCarsByColorId(int colorid)
         {
-            return _cardal.GetAll(c => c.ColorId == colorid);
+            return new SuccessDataResult<List<Car>>(_cardal.GetAll(c => c.ColorId == colorid));
         }
 
-        public List<CarDetailDto> GetProductDetails()
+        public IDataResult<List<CarDetailDto>> GetProductDetails()
         {
-            return _cardal.GetProductDetails();
+            return new SuccessDataResult<List<CarDetailDto>>(_cardal.GetProductDetails());
         }
     }
 }
