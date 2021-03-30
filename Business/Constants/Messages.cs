@@ -14,10 +14,10 @@ namespace Business.Constants
         public static string RentalDeleted = "Rental silindi";
         public static string RentalUpdated = "Rental guncellendi";
 
-        public static string ProductAdded = "Urun elave edildi";
-        public static string ProductNameInvalid = "Product adi gecersizdir";
+        public static string CarAdded = "Car elave edildi";
+        public static string CarNameInvalid = "Car adi gecersizdir";
         public static string MaintenanceTime = "Sistem proflaktik baxisda";
-        public static string ProductsListed = "Product listelendi";
-        public static string UnitPriceInvalid = "Productin Pricei kecerli deyil";
+        public static string CarsListed = "car listelendi";
+        public static string UnitPriceInvalid = "Car Pricei kecerli deyil";
     }
 }
