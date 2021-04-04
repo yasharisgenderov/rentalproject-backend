@@ -47,6 +47,11 @@ namespace Business.Concret
             return new SuccessResult(Messages.CarAdded);
         }
 
+        public IResult Delete(Car car)
+        {
+            throw new NotImplementedException();
+        }
+
         public IDataResult<List<Car>> GetAll()
         {
             if (DateTime.Now.Hour == 23)
@@ -69,6 +74,11 @@ namespace Business.Concret
         public IDataResult<List<CarDetailDto>> GetProductDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_cardal.GetProductDetails());
+        }
+
+        public IResult Update(Car car)
+        {
+            throw new NotImplementedException();
         }
     }
 }
