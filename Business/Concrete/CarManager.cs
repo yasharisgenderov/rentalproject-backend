@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
@@ -10,6 +11,7 @@ using Entities.DTOs;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concret
@@ -43,6 +45,11 @@ namespace Business.Concret
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
+            IResult result = BusinessRules.Run(CheckIfCarCountOfCategoryCorrect(car.CarId), CheckIfCarNameExists(car.CarName));
+            if (result!=null)
+            {
+                return result;
+            }
             _cardal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
@@ -80,5 +87,26 @@ namespace Business.Concret
         {
             throw new NotImplementedException();
         }
+
+        private IResult CheckIfCarCountOfCategoryCorrect(int carId)
+        {
+            var result = _cardal.GetAll(c => c.CarId == carId).Count;
+            if (result>=10)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
+        }
+        
+        private IResult CheckIfCarNameExists(string carName)
+        {
+            var result = _cardal.GetAll(c => c.CarName == carName).Any();
+            if (result)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
+        }
     }
+    
 }
