@@ -54,6 +54,14 @@ namespace Business.Concret
             return new SuccessResult(Messages.CarAdded);
         }
 
+        //[TransactionScopeAspect]
+        public IResult AddTransactionalTest(Car car)
+        {
+            _cardal.Update(car);
+            _cardal.Add(car);
+            return new SuccessResult(Messages.ProductUpdated);
+        }
+
         public IResult Delete(Car car)
         {
             throw new NotImplementedException();

@@ -43,5 +43,6 @@ namespace Business.Constants
         public static string UserRegistered="User register oldu";
         public static string UserAlreadyExists="Bele bir user var";
         public static string UserNotFound="Bele bir user yoxdur";
+        internal static string ProductUpdated;
     }
 }
