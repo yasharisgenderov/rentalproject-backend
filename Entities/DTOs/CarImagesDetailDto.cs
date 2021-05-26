@@ -8,6 +8,6 @@ namespace Entities.DTOs
     {
         public int CarId { get; set; }
 
-        public string? ImagePath { get; set; }
+        public string ImagePath { get; set; }
     }
 }
