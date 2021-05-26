@@ -44,7 +44,21 @@ namespace Business.Constants
         public static string UserAlreadyExists="Bele bir user var";
         public static string UserNotFound="Bele bir user yoxdur";
         public static string ProductUpdated="Product Update olundu";
-        internal static string CustomersListed;
         internal static string CustomerAdded;
+        internal static string CustomersListed;
+        internal static string OverImage;
+        internal static string ThrowErrorMessage;
+        internal static string Deleted;
+        internal static string Updated;
     }
 }
+/*[HttpGet("getdetails")]
+        public IActionResult GetDetails()
+        {
+            var result = _carImageService.GetDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }*/

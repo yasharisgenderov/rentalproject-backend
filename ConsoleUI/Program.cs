@@ -11,7 +11,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            ProductTest();
+            /*ProductTest();*/
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
             var result = rentalManager.Add(new Rental
             {
@@ -29,14 +29,14 @@ namespace ConsoleUI
             }
         }
 
-        private static void ProductTest()
+       /* private static void ProductTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetProductDetails().Data)
+            foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine(car.CarName + "/" + car.ColorName);
             }
         }
-
+       */
     }
 }

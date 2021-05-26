@@ -86,9 +86,9 @@ namespace Business.Concret
             return new SuccessDataResult<List<Car>>(_cardal.GetAll(c => c.ColorId == colorid));
         }
 
-        public IDataResult<List<CarDetailDto>> GetProductDetails()
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_cardal.GetProductDetails());
+            return new SuccessDataResult<List<CarDetailDto>>(_cardal.GetCarDetails());
         }
 
         public IResult Update(Car car)

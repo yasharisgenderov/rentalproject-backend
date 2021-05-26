@@ -54,7 +54,7 @@ namespace DataAccess.Concrete
             return _cars.Where(c => c.BrandId == CarId).ToList();
         }
 
-        public List<CarDetailDto> GetProductDetails()
+        public List<CarDetailDto> GetCarDetails()
         {
             throw new NotImplementedException();
         }

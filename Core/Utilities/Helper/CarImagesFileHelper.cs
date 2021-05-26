@@ -1,45 +1,66 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Core.Utilities.Results;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Core.Utilities.Helper
+namespace Core.Utilities.Helpers
 {
-    public class CarImagesFileHelper
+    public class FileHelper
     {
-        static string directory = Directory.GetCurrentDirectory() + @"\wwwroot\";
-        static string path = @"Images\";
         public static string Add(IFormFile file)
         {
-            string extension = Path.GetExtension(file.FileName).ToUpper();
-            string newFileName = Guid.NewGuid().ToString("N") + extension;
-            if (!Directory.Exists(directory + path))
+            //string sourcePath = Path.GetTempFileName();
+            string destFileName = CreateNewFilePath(file);
+            if (file.Length > 0)
             {
-                Directory.CreateDirectory(directory + path);
+                using (var stream = new FileStream(destFileName, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
             }
-            using (FileStream fileStream = File.Create(directory + path + newFileName))
-            {
-                file.CopyTo(fileStream);
-                fileStream.Flush();
-            }
-            return (path + newFileName).Replace("\\", "/");
-        }
 
-        public static string Update(IFormFile file, string oldImagePath)
+            //File.Move(sourcePath, destFileName);
+            return destFileName;
+        }
+        public static string Update(string sourcePath, IFormFile file)
         {
-            Delete(oldImagePath);
-            return Add(file);
-        }
+            var result = CreateNewFilePath(file);
 
-        public static void Delete(string imagePath)
-        {
-            if (File.Exists(directory + imagePath.Replace("/", "\\"))
-                && Path.GetFileName(imagePath) != "default.png")
+            if (file.Length > 0)
             {
-                File.Delete(directory + imagePath.Replace("/", "\\"));
+                using (var stream = new FileStream(result, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
             }
-        }
 
+            File.Delete(sourcePath);
+            return result;
+        }
+        public static IResult Delete(string path)
+        {
+            try
+            {
+                File.Delete(path);
+            }
+            catch (Exception exception)
+            {
+                return new ErrorResult(exception.Message);
+            }
+            return new SuccessResult();
+        }
+        public static string CreateNewFilePath(IFormFile file)
+        {
+            FileInfo fileInfo = new FileInfo(file.FileName);
+            string fileExtension = fileInfo.Extension;
+
+            string path = Environment.CurrentDirectory + @"\Images";
+            string newPath = Guid.NewGuid().ToString() + fileExtension;
+
+            string result = $@"{path}\{newPath}";
+            return result;
+        }
     }
 }
