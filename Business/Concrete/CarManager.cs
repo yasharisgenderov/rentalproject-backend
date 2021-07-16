@@ -64,7 +64,8 @@ namespace Business.Concret
 
         public IResult Delete(Car car)
         {
-            throw new NotImplementedException();
+           _cardal.Delete(car);
+            return new SuccessResult(Messages.CarDeleted);
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -114,6 +115,11 @@ namespace Business.Concret
                 return new ErrorResult();
             }
             return new SuccessResult();
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarImagesDetailsByCarId(int carid)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_cardal.GetCarDetails());
         }
     }
     

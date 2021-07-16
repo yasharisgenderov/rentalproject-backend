@@ -50,6 +50,7 @@ namespace Business.Constants
         internal static string ThrowErrorMessage;
         internal static string Deleted;
         internal static string Updated;
+        internal static string CarDeleted;
     }
 }
 /*[HttpGet("getdetails")]
